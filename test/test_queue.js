@@ -223,6 +223,16 @@ describe('Queue', () => {
       return queue.close();
     });
 
+    it('creates a queue using the supplied redis url that contains rediss protocol', () => {
+      const queue = new Queue('custom', {
+        redis: 'rediss://abc:123@127.2.3.4:1234/1'
+      });
+
+      expect(queue.client.options.tls).to.be.eql({});
+
+      return queue.close();
+    });
+
     it('creates a queue using the supplied redis host', () => {
       const queue = new Queue('custom', { redis: { host: 'localhost' } });
 
